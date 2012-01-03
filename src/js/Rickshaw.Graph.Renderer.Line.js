@@ -10,7 +10,7 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 
 		graph.unstacker = graph.unstacker || new Rickshaw.Graph.Unstacker( { graph: graph } );
 
-		this.seriesPathFactory = function() { 
+		this.seriesPathFactory = function() {
 
 			return d3.svg.line()
 				.x( function(d) { return graph.x(d.x) } )
@@ -22,7 +22,7 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 
 			var values = [];
 			var stackedData = graph.stackedData || graph.stackData();
-	
+
 			stackedData.forEach( function(series) {
 				series.forEach( function(d) {
 					values.push( d.y )
@@ -45,7 +45,7 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 			var nodes = this.graph.vis.selectAll("path")
 				.data(this.graph.stackedData)
 				.enter().append("svg:path")
-				.attr("d", this.seriesPathFactory()); 
+				.attr("d", this.seriesPathFactory());
 
 			var i = 0;
 			graph.series.forEach( function(series) {
@@ -61,4 +61,3 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 			series.path.setAttribute('stroke-width', 2);
 		}
 }
-
