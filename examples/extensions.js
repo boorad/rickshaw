@@ -172,8 +172,6 @@ var refresh = window.setInterval( function() {
 // shut down refresh after a few secs
 var cancel_refresh = setTimeout( "window.clearInterval(refresh);", 6000 );
 
-console.log(refresh, cancel_refresh);
-
 function addAnnotation(force) {
     if (messages.length > 0 && (force || Math.random() >= 0.95)) {
 	annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());

@@ -2,29 +2,34 @@ Rickshaw.namespace('Rickshaw.Fixtures.RandomData');
 
 Rickshaw.Fixtures.RandomData = function(timeInterval) {
 
-	var addData;
-	timeInterval = timeInterval || 1;
+    var addData;
+    timeInterval = timeInterval || 1;
 
-	var lastRandomValue = 50;
+    var lastRandomValue = 50;
 
-	var timeBase = Math.floor(new Date("June 21, 2012 20:00:00").getTime() / 1000);
+    var timeBase = Math.floor(new Date("June 21, 2012 20:00:00").getTime() / 1000);
 
-	this.addData = function(data) {
+    this.addData = function(data) {
 
-		var randomValue = Math.random() * 100 - 50 + lastRandomValue;
-		var index = data[0].length;
-		var counter = 1;
+	var randomValue = Math.random() * 100 - 50 + lastRandomValue;
+	var index = data[0].length;
 
-		data.forEach( function(series) {
-			var randomVariance = Math.random() * 20;
-			var v = randomValue / 25  + counter++
-				+ (Math.cos((index * counter * 11) / 960) + 2) * 15
-				+ (Math.cos(index / 7) + 2) * 7
-				+ (Math.cos(index / 17) + 2) * 1;
+        var lastX = timeBase;
+        if( index > 0 )
+            lastX = data[0][ index - 1 ].x;
 
-			series.push( { x: (index * timeInterval) + timeBase, y: v + randomVariance } );
-		} );
+	var counter = 1;
 
-		lastRandomValue = randomValue * .85;
-	}
+	data.forEach( function(series) {
+	    var randomVariance = Math.random() * 20;
+	    var v = randomValue / 25  + counter++
+		+ (Math.cos((index * counter * 11) / 960) + 2) * 15
+		+ (Math.cos(index / 7) + 2) * 7
+		+ (Math.cos(index / 17) + 2) * 1;
+
+	    series.push( { x: lastX + timeInterval, y: v + randomVariance } );
+	} );
+
+	lastRandomValue = randomValue * .85;
+    }
 }
