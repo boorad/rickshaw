@@ -157,25 +157,22 @@ var messages = [
     "Added documentation for new methods"
 ];
 
-if( false ) {
-setInterval( function() {
-//    console.log(graph.series);
-    var shift = seriesData[0].shift();
-    console.log(shift, seriesData);
+// refresh loop
+var refresh = window.setInterval( function() {
+    console.log(graph.series);
     random.addData(seriesData);
+
+    var shift = seriesData[0].shift();
+//    console.log(shift, seriesData);
+
     //graph.series[0].data = seriesData[0];
     graph.update();
 }, 1000 );
-}
 
-function shiftData(data) {
-    for( var i=0; i < data.length; i++ ) {
-        data[i].shift();
-    }
-    random.addData(data);
-    console.log(data);
-    return data;
-}
+// shut down refresh after a few secs
+var cancel_refresh = setTimeout( "window.clearInterval(refresh);", 6000 );
+
+console.log(refresh, cancel_refresh);
 
 function addAnnotation(force) {
     if (messages.length > 0 && (force || Math.random() >= 0.95)) {
