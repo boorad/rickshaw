@@ -139,10 +139,21 @@ var setRenderMode = function(name) {
 };
 
 var offset_form = document.getElementById('offset_form');
-offset_form.addEventListener("change", function(e) { setRenderMode(e.target.value) }, false);
+offset_form.addEventListener("change", function(e) {
+    setRenderMode(e.target.value)
+}, false);
 
 var renderer_form = document.getElementById('renderer_form');
-renderer_form.addEventListener("change", function(e) { setRenderMode(e.target.value) }, false);
+renderer_form.addEventListener("change", function(e) {
+    setRenderMode(e.target.value)
+}, false);
+
+graph.shift = function(newPts) {
+    console.log(newPts, seriesData);
+    var path = graph.vis.select("path");
+    path.transition().duration(950);
+}
+
 
 // add some data every so often
 
@@ -159,22 +170,39 @@ var messages = [
 
 // refresh loop
 var refresh = window.setInterval( function() {
-    console.log(graph.series);
+    // old way
     random.addData(seriesData);
-
     var shift = seriesData[0].shift();
-//    console.log(shift, seriesData);
-
-    //graph.series[0].data = seriesData[0];
     graph.update();
+    //d3.select("#chart g.paths")
+    //    .transition("transform", "translate(0)").duration(950);
+
+    // new way
+    //var newPts = getRandomPoints();
+    //graph.shift(newPts);
+
 }, 1000 );
 
 // shut down refresh after a few secs
-var cancel_refresh = setTimeout( "window.clearInterval(refresh);", 6000 );
+var cancel_refresh = setTimeout( "window.clearInterval(refresh);", 10*1000 );
+
+function getRandomPoints() {
+    var newPts = $.map( seriesData, function(series, i) {
+        return getRandomPoint(series);
+    } );
+    return newPts;
+}
+
+function getRandomPoint(series){
+    var fromPoint = series[series.length-1];
+    var variance = Math.round(Math.random())*-2+1;
+    variance*=Math.random()*3;
+    return {x: fromPoint.x + 1, y:fromPoint.y+variance}
+}
 
 function addAnnotation(force) {
     if (messages.length > 0 && (force || Math.random() >= 0.95)) {
-	annotator.add(seriesData[2][seriesData[2].length-1].x, messages.shift());
+	annotator.add(seriesData[0][seriesData[0].length-1].x,messages.shift());
     }
 }
 

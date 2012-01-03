@@ -33,7 +33,7 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 	var xMax = stackedData[0][ stackedData[0].length - 1 ].x;
 
 	var yMin = 0;
-	var yMax = d3.max( values );
+	var yMax = 102; //d3.max( values );
 
 	return { x: [xMin, xMax], y: [yMin, yMax] };
     }
@@ -45,7 +45,15 @@ Rickshaw.Graph.Renderer.Line = function(args) {
 	var nodes = this.graph.vis.selectAll("path")
 	    .data(this.graph.stackedData)
 	    .enter().append("svg:path")
-	    .attr("d", this.seriesPathFactory());
+	    .attr("d", this.seriesPathFactory())
+            .attr("class", "line");
+
+        this.graph.vis.selectAll("path.line")
+            .attr("transform", "translate(47)")
+            .transition()
+            .ease("linear")
+            .duration(1000)
+            .attr("transform", "translate(2)");
 
 	var i = 0;
 	graph.series.forEach( function(series) {

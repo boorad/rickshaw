@@ -8,8 +8,15 @@ div, span, p, td {
 	display: inline-block;
 }
 #chart path {
-	-webkit-transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
 }
+
+path.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 3;
+}
+
 #slider {
 	margin-top: 10px;
 }
