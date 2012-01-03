@@ -3,7 +3,7 @@
 var timeInterval = 1; // seconds
 var init_pts = 20;
 var seriesData = [ [] ];
-var random = new Rickshaw.Fixtures.RandomData(timeInterval, init_pts);
+var random = new Rickshaw.Fixtures.RandomData(timeInterval);
 
 for (var i = 0; i < init_pts; i++) {
     random.addData(seriesData);

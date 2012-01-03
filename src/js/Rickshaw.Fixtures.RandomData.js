@@ -5,13 +5,13 @@ Rickshaw.Fixtures.RandomData = function(timeInterval) {
 	var addData;
 	timeInterval = timeInterval || 1;
 
-	var lastRandomValue = 200;
+	var lastRandomValue = 50;
 
-	var timeBase = Math.floor(new Date().getTime() / 1000);
+	var timeBase = Math.floor(new Date("June 21, 2012 20:00:00").getTime() / 1000);
 
 	this.addData = function(data) {
 
-		var randomValue = Math.random() * 100 + 15 + lastRandomValue;
+		var randomValue = Math.random() * 100 - 50 + lastRandomValue;
 		var index = data[0].length;
 
 		var counter = 1;
